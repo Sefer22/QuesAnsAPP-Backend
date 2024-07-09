@@ -24,7 +24,13 @@ public class UserController {
     }
 
     @PostMapping
-    public User createUser(@PathVariable User user) {
+    public User createUser(@RequestBody User user) {
         return userRepository.save(user);
+    }
+
+    @GetMapping("/{userId}")
+    public User getOneUser(@PathVariable Long userId) {
+        //custom exception
+        return userRepository.findById(userId).orElse(null);
     }
 }
