@@ -12,12 +12,13 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
-@AllArgsConstructor
-@NoArgsConstructor
-@RequiredArgsConstructor
 public class UserController {
 
     private UserRepository userRepository;
+
+    public UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @GetMapping
     public List<User> getAllUsers() {
