@@ -205,3 +205,27 @@ Caused by: org.postgresql.util.PSQLException: ERROR: syntax error at or near "us
 2024-07-09T22:21:40.938+04:00  INFO 600 --- [QuesAnsApp-backend] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2024-07-09T22:21:40.958+04:00  INFO 600 --- [QuesAnsApp-backend] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
 2024-07-09T22:21:41.035+04:00  INFO 600 --- [QuesAnsApp-backend] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
+2024-07-09T22:22:35.730+04:00  INFO 3900 --- [QuesAnsApp-backend] [restartedMain] c.e.q.QuesAnsAppBackendApplication       : Starting QuesAnsAppBackendApplication using Java 17.0.8 with PID 3900 (C:\Users\44Telecom\Desktop\QuesAnsApp\QuesAnsApp-backend\target\classes started by 44Telecom in C:\Users\44Telecom\Desktop\QuesAnsApp\QuesAnsApp-backend)
+2024-07-09T22:22:35.736+04:00  INFO 3900 --- [QuesAnsApp-backend] [restartedMain] c.e.q.QuesAnsAppBackendApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-07-09T22:22:35.889+04:00  INFO 3900 --- [QuesAnsApp-backend] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-07-09T22:22:35.890+04:00  INFO 3900 --- [QuesAnsApp-backend] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-07-09T22:22:38.098+04:00  INFO 3900 --- [QuesAnsApp-backend] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-07-09T22:22:38.179+04:00  INFO 3900 --- [QuesAnsApp-backend] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 59 ms. Found 0 JPA repository interfaces.
+2024-07-09T22:22:39.822+04:00  INFO 3900 --- [QuesAnsApp-backend] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-07-09T22:22:39.857+04:00  INFO 3900 --- [QuesAnsApp-backend] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-07-09T22:22:39.858+04:00  INFO 3900 --- [QuesAnsApp-backend] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.25]
+2024-07-09T22:22:40.022+04:00  INFO 3900 --- [QuesAnsApp-backend] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-07-09T22:22:40.024+04:00  INFO 3900 --- [QuesAnsApp-backend] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4132 ms
+2024-07-09T22:22:40.522+04:00  INFO 3900 --- [QuesAnsApp-backend] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-07-09T22:22:40.879+04:00  INFO 3900 --- [QuesAnsApp-backend] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-07-09T22:22:40.973+04:00  INFO 3900 --- [QuesAnsApp-backend] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-07-09T22:22:42.056+04:00  INFO 3900 --- [QuesAnsApp-backend] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-07-09T22:22:42.193+04:00  INFO 3900 --- [QuesAnsApp-backend] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-07-09T22:22:43.238+04:00  INFO 3900 --- [QuesAnsApp-backend] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@23590a10
+2024-07-09T22:22:43.241+04:00  INFO 3900 --- [QuesAnsApp-backend] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-07-09T22:22:46.573+04:00  INFO 3900 --- [QuesAnsApp-backend] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-07-09T22:22:46.822+04:00  INFO 3900 --- [QuesAnsApp-backend] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-07-09T22:22:46.957+04:00  WARN 3900 --- [QuesAnsApp-backend] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-07-09T22:22:48.504+04:00  INFO 3900 --- [QuesAnsApp-backend] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-07-09T22:22:48.628+04:00  INFO 3900 --- [QuesAnsApp-backend] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2024-07-09T22:22:48.661+04:00  INFO 3900 --- [QuesAnsApp-backend] [restartedMain] c.e.q.QuesAnsAppBackendApplication       : Started QuesAnsAppBackendApplication in 14.357 seconds (process running for 17.743)
