@@ -1,6 +1,8 @@
 package com.example.quesansappbackend.service;
 
 import com.example.quesansappbackend.entity.Comment;
+import com.example.quesansappbackend.entity.Post;
+import com.example.quesansappbackend.entity.User;
 import com.example.quesansappbackend.repository.CommentRepository;
 import com.example.quesansappbackend.request.CommentCreateRequest;
 import org.springframework.stereotype.Service;
@@ -15,8 +17,10 @@ public class CommentService {
     private PostService postService;
     private UserService userService;
 
-    public CommentService(CommentRepository commentRepository) {
+    public CommentService(CommentRepository commentRepository, PostService postService, UserService userService) {
         this.commentRepository = commentRepository;
+        this.postService = postService;
+        this.userService = userService;
     }
 
     public List<Comment> getAllCommentsWithParam(Optional<Long> userId, Optional<Long> postId) {
@@ -35,6 +39,10 @@ public class CommentService {
     }
 
     public Comment createOneComment(CommentCreateRequest commentCreateRequest) {
-
+        User user = userService.getOneUserById(commentCreateRequest.getUserId());
+        Post post = postService.getOnePostById(commentCreateRequest.getPostId());
+        if(user !=null && post !=null) {
+            Comment commentToSave = new Comment();
+        }
     }
 }
