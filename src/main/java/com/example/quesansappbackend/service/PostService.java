@@ -4,6 +4,7 @@ import com.example.quesansappbackend.entity.Post;
 import com.example.quesansappbackend.entity.User;
 import com.example.quesansappbackend.repository.PostRepository;
 import com.example.quesansappbackend.request.PostCreateRequest;
+import com.example.quesansappbackend.request.PostUpdateRequest;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -46,7 +47,12 @@ public class PostService {
         return postRepository.save(toSave);
     }
 
-    public Post updateOnePostById(Long postId) {
+    public Post updateOnePostById(Long postId,PostUpdateRequest postUpdateRequest) {
+    Optional<Post> post = postRepository.findById(postId);
+    if(post.isPresent()) {
+
+    }
+    return null;
     }
 
     public void deleteOnePostById(Long postId) {

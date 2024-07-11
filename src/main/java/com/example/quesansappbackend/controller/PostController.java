@@ -2,6 +2,7 @@ package com.example.quesansappbackend.controller;
 
 import com.example.quesansappbackend.entity.Post;
 import com.example.quesansappbackend.request.PostCreateRequest;
+import com.example.quesansappbackend.request.PostUpdateRequest;
 import com.example.quesansappbackend.service.PostService;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,8 +35,8 @@ public class PostController {
     }
 
     @PutMapping("/{postId}")
-    public Post updateOnePost(@PathVariable Long postId) {
-        return postService.updateOnePostById(postId);
+    public Post updateOnePost(@PathVariable Long postId, @RequestBody PostUpdateRequest postUpdateRequest) {
+        return postService.updateOnePostById(postId,postUpdateRequest);
     }
 
     @DeleteMapping("/{postId}")
