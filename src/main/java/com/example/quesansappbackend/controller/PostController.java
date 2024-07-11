@@ -1,6 +1,7 @@
 package com.example.quesansappbackend.controller;
 
 import com.example.quesansappbackend.entity.Post;
+import com.example.quesansappbackend.request.PostCreateRequest;
 import com.example.quesansappbackend.service.PostService;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +28,8 @@ public class PostController {
         return postService.getOnePostById(postId);
     }
     @PostMapping
-    public Post createOnePost(@RequestBody Post newPost) {
-        return postService.createOnePost(newPost);
+    public Post createOnePost(@RequestBody PostCreateRequest newPostRequest) {
+
+        return postService.createOnePost(newPostRequest);
     }
 }
