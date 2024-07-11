@@ -17,7 +17,13 @@ public class CommentService {
     }
 
     public List<Comment> getAllCommentsWithParam(Optional<Long> userId, Optional<Long> postId) {
+        if(userId.isPresent() && postId.isPresent()) {
+            return commentRepository.findByUserIdAndPostId(userId,postId);
+        } else if (userId.isPresent()) {
+            return commentRepository.findByUserId(Optional.of(userId.get()));
+        } else if (postId.isPresent()) {
+            return commentRepository.findByPostId(Optional.of(postId.get()));
+        }else  return commentRepository.findAll();
 
-        return null;
     }
 }
