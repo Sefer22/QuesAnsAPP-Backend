@@ -45,4 +45,11 @@ public class PostService {
         toSave.setUser(user);
         return postRepository.save(toSave);
     }
+
+    public Post updateOnePostById(Long postId) {
+    }
+
+    public void deleteOnePostById(Long postId) {
+        postRepository.deleteById(postId);
+    }
 }

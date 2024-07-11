@@ -32,4 +32,14 @@ public class PostController {
 
         return postService.createOnePost(newPostRequest);
     }
+
+    @PutMapping("/{postId}")
+    public Post updateOnePost(@PathVariable Long postId) {
+        return postService.updateOnePostById(postId);
+    }
+
+    @DeleteMapping("/{postId}")
+    public void deleteOnePost(@PathVariable Long postId) {
+        postService.deleteOnePostById(postId);
+    }
 }
