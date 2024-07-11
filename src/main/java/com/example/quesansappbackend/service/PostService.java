@@ -50,7 +50,11 @@ public class PostService {
     public Post updateOnePostById(Long postId,PostUpdateRequest postUpdateRequest) {
     Optional<Post> post = postRepository.findById(postId);
     if(post.isPresent()) {
-
+        Post toUpdate = post.get();
+        toUpdate.setText(postUpdateRequest.getText());
+        toUpdate.setTitle(postUpdateRequest.getTitle());
+         postRepository.save(toUpdate);
+         return toUpdate;
     }
     return null;
     }
