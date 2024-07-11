@@ -30,5 +30,10 @@ public class CommentController {
     public Comment createOneComment(@RequestBody CommentCreateRequest commentCreateRequest) {
         return commentService.createOneComment(commentCreateRequest);
     }
+    @PutMapping("/{commentId}")
+    public Comment updateOneComment(@PathVariable Long commentId) {
+        return commentService.updateOneCommentById(commentId);
+    }
+
 
 }

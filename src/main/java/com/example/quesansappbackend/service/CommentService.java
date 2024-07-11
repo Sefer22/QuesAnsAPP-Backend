@@ -51,4 +51,12 @@ public class CommentService {
         }else
             return null;
     }
+
+    public Comment updateOneCommentById(Long commentId) {
+        Optional<Comment> comment=commentRepository.findById(commentId);
+        if(comment.isPresent()) {
+
+        }else
+            return null;
+    }
 }
