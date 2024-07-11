@@ -12,6 +12,10 @@ public class PostService {
 
    private PostRepository postRepository;
 
+    public PostService(PostRepository postRepository) {
+        this.postRepository = postRepository;
+    }
+
     public List<Post> getAllPosts(Optional<Long> userId) {
         if(userId.isPresent()) {
             return postRepository.findByUserId(userId.get());
