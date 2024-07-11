@@ -4,6 +4,7 @@ import com.example.quesansappbackend.entity.Post;
 import com.example.quesansappbackend.entity.User;
 import com.example.quesansappbackend.repository.PostRepository;
 import com.example.quesansappbackend.request.PostCreateRequest;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class PostService {
         this.userService=userService;
     }
 
+    @Transactional
     public List<Post> getAllPosts(Optional<Long> userId) {
         if(userId.isPresent()) {
             return postRepository.findByUserId(userId.get());
