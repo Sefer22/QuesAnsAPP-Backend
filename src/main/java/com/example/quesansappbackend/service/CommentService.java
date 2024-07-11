@@ -5,6 +5,7 @@ import com.example.quesansappbackend.entity.Post;
 import com.example.quesansappbackend.entity.User;
 import com.example.quesansappbackend.repository.CommentRepository;
 import com.example.quesansappbackend.request.CommentCreateRequest;
+import com.example.quesansappbackend.request.CommentUpdateRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -52,10 +53,12 @@ public class CommentService {
             return null;
     }
 
-    public Comment updateOneCommentById(Long commentId) {
+    public Comment updateOneCommentById(Long commentId, CommentUpdateRequest commentUpdateRequest) {
         Optional<Comment> comment=commentRepository.findById(commentId);
         if(comment.isPresent()) {
-
+            Comment commentToUpdate = comment.get();
+            commentToUpdate.setText(commentUpdateRequest.getText());
+            return commentRepository.save(commentToUpdate);
         }else
             return null;
     }

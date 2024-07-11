@@ -2,6 +2,7 @@ package com.example.quesansappbackend.controller;
 
 import com.example.quesansappbackend.entity.Comment;
 import com.example.quesansappbackend.request.CommentCreateRequest;
+import com.example.quesansappbackend.request.CommentUpdateRequest;
 import com.example.quesansappbackend.service.CommentService;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,8 +32,8 @@ public class CommentController {
         return commentService.createOneComment(commentCreateRequest);
     }
     @PutMapping("/{commentId}")
-    public Comment updateOneComment(@PathVariable Long commentId) {
-        return commentService.updateOneCommentById(commentId);
+    public Comment updateOneComment(@PathVariable Long commentId, @RequestBody CommentUpdateRequest commentUpdateRequest) {
+        return commentService.updateOneCommentById(commentId,commentUpdateRequest);
     }
 
 
