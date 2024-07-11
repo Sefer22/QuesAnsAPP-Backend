@@ -2,6 +2,7 @@ package com.example.quesansappbackend.service;
 
 import com.example.quesansappbackend.entity.Comment;
 import com.example.quesansappbackend.repository.CommentRepository;
+import com.example.quesansappbackend.request.CommentCreateRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +12,8 @@ import java.util.Optional;
 public class CommentService {
 
     private CommentRepository commentRepository;
+    private PostService postService;
+    private UserService userService;
 
     public CommentService(CommentRepository commentRepository) {
         this.commentRepository = commentRepository;
@@ -29,5 +32,9 @@ public class CommentService {
 
     public Comment getOneCommentById(Long commentId) {
         return commentRepository.findById(commentId).orElse(null);
+    }
+
+    public Comment createOneComment(CommentCreateRequest commentCreateRequest) {
+
     }
 }

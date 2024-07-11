@@ -1,6 +1,7 @@
 package com.example.quesansappbackend.controller;
 
 import com.example.quesansappbackend.entity.Comment;
+import com.example.quesansappbackend.request.CommentCreateRequest;
 import com.example.quesansappbackend.service.CommentService;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,8 +27,8 @@ public class CommentController {
         return commentService.getOneCommentById(commentId);
     }
     @PostMapping
-    public Comment createOneComment() {
-
+    public Comment createOneComment(@RequestBody CommentCreateRequest commentCreateRequest) {
+        return commentService.createOneComment(commentCreateRequest);
     }
 
 }
