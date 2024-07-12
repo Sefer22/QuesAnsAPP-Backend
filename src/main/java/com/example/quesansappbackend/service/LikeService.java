@@ -1,8 +1,11 @@
 package com.example.quesansappbackend.service;
 
 import com.example.quesansappbackend.entity.Like;
+import com.example.quesansappbackend.entity.Post;
+import com.example.quesansappbackend.entity.User;
 import com.example.quesansappbackend.repository.LikeRepository;
 import com.example.quesansappbackend.request.LikeCreateRequest;
+import com.example.quesansappbackend.response.LikeResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,7 +25,7 @@ public class LikeService {
         this.postService = postService;
     }
 
-    public List<Like> getAllLikesWithParam(Optional<Long> userId, Optional<Long> postId) {
+    public List<LikeResponse> getAllLikesWithParam(Optional<Long> userId, Optional<Long> postId) {
       List<Like> list;
       if(userId.isPresent() && postId.isPresent()) {
           list = likeRepository.findByUserIdAndPostId(userId.get(), postId.get());
@@ -32,11 +35,21 @@ public class LikeService {
           list = likeRepository.findByPostId(postId);
       }else
           list = likeRepository.findAll();
-      return list.stream().map(like -> newLikeResponse(like)).collect(Collectors.toList());
+      return list.stream().map(like -> new LikeResponse(like)).collect(Collectors.toList());
 
     }
 
     public Like createOneLike(LikeCreateRequest likeCreateRequest) {
+        User user = userService.getOneUserById(likeCreateRequest.getUserId());
+        Post post = postService.getOnePostById(likeCreateRequest.getPostId());
+        if(user !=null && post != null) {
+            Like likeToSave = new Like();
+            likeToSave.setId(likeCreateRequest.getId());
+            likeToSave.setPost(post);
+            likeToSave.setUser(user);
+            return likeRepository.save(likeToSave);
+        }else
+            return null;
     }
 
     public Like getOneLikeById(Long likeId) {
