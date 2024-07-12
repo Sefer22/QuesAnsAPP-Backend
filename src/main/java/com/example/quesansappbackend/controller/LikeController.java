@@ -2,6 +2,7 @@ package com.example.quesansappbackend.controller;
 
 import com.example.quesansappbackend.entity.Like;
 import com.example.quesansappbackend.request.LikeCreateRequest;
+import com.example.quesansappbackend.response.LikeResponse;
 import com.example.quesansappbackend.service.LikeService;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +20,8 @@ public class LikeController {
     }
 
     @GetMapping
-    public List<Like> getAllLikes(@RequestParam Optional<Long> userId,
-                                  @RequestParam Optional<Long> postId) {
+    public List<LikeResponse> getAllLikes(@RequestParam Optional<Long> userId,
+                                          @RequestParam Optional<Long> postId) {
       return likeService.getAllLikesWithParam(userId,postId);
     }
     @PostMapping
