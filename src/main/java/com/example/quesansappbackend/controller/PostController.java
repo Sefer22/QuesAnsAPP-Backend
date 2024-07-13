@@ -3,6 +3,7 @@ package com.example.quesansappbackend.controller;
 import com.example.quesansappbackend.entity.Post;
 import com.example.quesansappbackend.request.PostCreateRequest;
 import com.example.quesansappbackend.request.PostUpdateRequest;
+import com.example.quesansappbackend.response.PostResponse;
 import com.example.quesansappbackend.service.PostService;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +22,7 @@ public class PostController {
     }
 
     @GetMapping
-    public List<Post> getAllPosts(@RequestParam Optional<Long> userId) {
+    public List<PostResponse> getAllPosts(@RequestParam Optional<Long> userId) {
         return postService.getAllPosts(userId);
     }
     @GetMapping("/{postId}")
