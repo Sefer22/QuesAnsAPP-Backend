@@ -7,8 +7,10 @@ import com.example.quesansappbackend.repository.LikeRepository;
 import com.example.quesansappbackend.repository.PostRepository;
 import com.example.quesansappbackend.request.PostCreateRequest;
 import com.example.quesansappbackend.request.PostUpdateRequest;
+import com.example.quesansappbackend.response.LikeResponse;
 import com.example.quesansappbackend.response.PostResponse;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,13 +21,17 @@ import java.util.stream.Collectors;
 public class PostService {
 
    private PostRepository postRepository;
+   @Autowired
    private LikeService likeService;
    private UserService userService;
 
-    public PostService(PostRepository postRepository,UserService userService,LikeService likeService) {
+    public PostService(PostRepository postRepository, UserService userService) {
         this.postRepository = postRepository;
-        this.likeService=likeService;
-        this.userService=userService;
+        this.userService = userService;
+    }
+
+    public void setLikeService(LikeService likeService) {
+        this.likeService = likeService;
     }
 
     @Transactional
@@ -36,8 +42,8 @@ public class PostService {
         }
             list = postRepository.findAll();
         return list.stream().map(post -> {
-           List<Like> likes = likeService.getAllLikesWithParam(null,post.getId());
-            return new PostResponse(post);}).collect(Collectors.toList());
+           List<LikeResponse> likes = likeService.getAllLikesWithParam(Optional.ofNullable(null),Optional.of(post.getId()));
+            return new PostResponse(post,likes);}).collect(Collectors.toList());
     }
 
     public Post getOnePostById(Long postId) {
