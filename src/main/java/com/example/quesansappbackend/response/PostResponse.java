@@ -1,7 +1,10 @@
 package com.example.quesansappbackend.response;
 
+import com.example.quesansappbackend.entity.Like;
 import com.example.quesansappbackend.entity.Post;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class PostResponse {
@@ -10,6 +13,7 @@ public class PostResponse {
     String userName;
     String title;
     String text;
+    List<Like> postLikes;
 
     public PostResponse(Post entity) {
         this.id=entity.getId();

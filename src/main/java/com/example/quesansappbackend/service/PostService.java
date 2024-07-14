@@ -1,7 +1,9 @@
 package com.example.quesansappbackend.service;
 
+import com.example.quesansappbackend.entity.Like;
 import com.example.quesansappbackend.entity.Post;
 import com.example.quesansappbackend.entity.User;
+import com.example.quesansappbackend.repository.LikeRepository;
 import com.example.quesansappbackend.repository.PostRepository;
 import com.example.quesansappbackend.request.PostCreateRequest;
 import com.example.quesansappbackend.request.PostUpdateRequest;
@@ -17,10 +19,12 @@ import java.util.stream.Collectors;
 public class PostService {
 
    private PostRepository postRepository;
+   private LikeService likeService;
    private UserService userService;
 
-    public PostService(PostRepository postRepository,UserService userService) {
+    public PostService(PostRepository postRepository,UserService userService,LikeService likeService) {
         this.postRepository = postRepository;
+        this.likeService=likeService;
         this.userService=userService;
     }
 
@@ -31,7 +35,9 @@ public class PostService {
              list = postRepository.findByUserId(userId.get());
         }
             list = postRepository.findAll();
-        return list.stream().map(post -> new PostResponse(post)).collect(Collectors.toList());
+        return list.stream().map(post -> {
+           List<Like> likes = likeService.getAllLikesWithParam(null,post.getId());
+            return new PostResponse(post);}).collect(Collectors.toList());
     }
 
     public Post getOnePostById(Long postId) {
