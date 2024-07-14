@@ -6,6 +6,7 @@ import com.example.quesansappbackend.entity.User;
 import com.example.quesansappbackend.repository.CommentRepository;
 import com.example.quesansappbackend.request.CommentCreateRequest;
 import com.example.quesansappbackend.request.CommentUpdateRequest;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +25,7 @@ public class CommentService {
         this.userService = userService;
     }
 
+    @Transactional
     public List<Comment> getAllCommentsWithParam(Optional<Long> userId, Optional<Long> postId) {
         if(userId.isPresent() && postId.isPresent()) {
             return commentRepository.findByUserIdAndPostId(userId,postId);
