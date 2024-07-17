@@ -19,9 +19,11 @@ import java.io.IOException;
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
-     JwtTokenProvider jwtTokenProvider;
+    JwtTokenProvider jwtTokenProvider;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     UserDetailsServiceImpl userDetailsServiceImpl;
     @Override
@@ -29,13 +31,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         try{
             String jwtToken = extractJwtFromRequest(request);
-            if(StringUtils.hasText(jwtToken) && jwtTokenProvider.validateToken(jwtToken));
-            Long id = jwtTokenProvider.getUserIdFromJwt(jwtToken);
-            UserDetails user = userDetailsServiceImpl.loadUserById(id);
-            if(user !=null) {
-                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user,null,user.getAuthorities());
-                auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(auth); // security ile elaqeli seyleri tutan local storage
+            if(StringUtils.hasText(jwtToken) && jwtTokenProvider.validateToken(jwtToken)) {
+                Long id = jwtTokenProvider.getUserIdFromJwt(jwtToken);
+                UserDetails user = userDetailsServiceImpl.loadUserById(id);
+                if (user != null) {
+                    UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                    auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(auth); // security ile elaqeli seyleri tutan local storage
+                }
             }
         } catch (Exception e){
             return;
