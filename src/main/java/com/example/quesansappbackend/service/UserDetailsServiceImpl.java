@@ -1,7 +1,8 @@
 package com.example.quesansappbackend.service;
 
+import com.example.quesansappbackend.entity.User;
 import com.example.quesansappbackend.repository.UserRepository;
-import org.springframework.security.core.userdetails.User;
+import com.example.quesansappbackend.security.JwtUserDetails;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,7 +17,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUserName();
-        return null;
+        User user = userRepository.findByUserName(username);
+        return JwtUserDetails.create(user);
     }
 }
