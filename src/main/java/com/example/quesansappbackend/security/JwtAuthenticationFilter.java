@@ -40,6 +40,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         } catch (Exception e){
             return;
         }
+        filterChain.doFilter(request,response);
     }
 
     private String extractJwtFromRequest(HttpServletRequest request) {
