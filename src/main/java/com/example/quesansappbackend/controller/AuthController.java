@@ -1,7 +1,10 @@
 package com.example.quesansappbackend.controller;
 
+import com.example.quesansappbackend.entity.User;
 import com.example.quesansappbackend.request.UserRequest;
 import com.example.quesansappbackend.security.JwtTokenProvider;
+import com.example.quesansappbackend.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,6 +22,7 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
 
     private JwtTokenProvider jwtTokenProvider;
+    private UserService userService;
 
     @PostMapping("/login")
     public String login(@RequestBody UserRequest loginRequest) {
@@ -30,7 +34,12 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register() {
-
+    public ResponseEntity<String> register(@RequestBody UserRequest registerRequest) {
+        if(userService.getOneUserByUserName(registerRequest.getUserName()) !=null) {
+            return new ResponseEntity<>("Username already in use", HttpStatus.BAD_REQUEST);
+        }
+        User user = new User();
+        user.setUserName(registerRequest.getUserName());
+        user.setPassword(registerRequest.getPassword());
     }
 }
