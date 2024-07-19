@@ -2,6 +2,7 @@ package com.example.quesansappbackend.controller;
 
 import com.example.quesansappbackend.request.UserRequest;
 import com.example.quesansappbackend.security.JwtTokenProvider;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,6 +25,12 @@ public class AuthController {
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(loginRequest.getUserName(),loginRequest.getPassword());
         Authentication auth = authenticationManager.authenticate(authToken);
         SecurityContextHolder.getContext().setAuthentication(auth);
-        String jwtToken
+        String jwtToken = jwtTokenProvider.generateJwtToken(auth);
+        return "Bearer "+jwtToken;
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<String> register() {
+
     }
 }
