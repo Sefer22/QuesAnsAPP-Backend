@@ -11,17 +11,18 @@ import java.util.Date;
 @Component
 public class JwtTokenProvider {
 
-    @Value("${}")
+    @Value("${app.secret}")
     private String APP_SECRET;//bu keye gore token yaradiriq
     @Value("${quesansappbackend.expires.in}")
     private long EXPIRES_IN;//ne qeder vaxta tokenler expire olur
+
 
     public String generateJwtToken(Authentication authentication) {
         JwtUserDetails jwtUserDetails = (JwtUserDetails) authentication.getPrincipal();//authenticate edeceyimiz user
         Date expireDate = new Date(new Date().getTime()+EXPIRES_IN);
         return Jwts.builder().setSubject(Long.toString(jwtUserDetails.getId()))
                 .setIssuedAt(new Date()).setExpiration(expireDate)
-                .signWith(SignatureAlgorithm.HS512,APP_SECRET).compact();
+                .signWith(SignatureAlgorithm.HS256,APP_SECRET).compact();
     }
     Long getUserIdFromJwt(String token) {
         Claims claims = Jwts.parser().setSigningKey(APP_SECRET).build().parseSignedClaims(token).getPayload();
