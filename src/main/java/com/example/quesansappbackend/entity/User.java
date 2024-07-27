@@ -13,4 +13,6 @@ public class User {
     Long id;
     String userName;
     String password;
+    @Column(nullable = false, columnDefinition = "integer default 0")
+    private Integer avatar = 0;
 }
