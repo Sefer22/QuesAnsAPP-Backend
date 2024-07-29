@@ -1,6 +1,9 @@
 package com.example.quesansappbackend.service;
 
 import com.example.quesansappbackend.entity.User;
+import com.example.quesansappbackend.repository.CommentRepository;
+import com.example.quesansappbackend.repository.LikeRepository;
+import com.example.quesansappbackend.repository.PostRepository;
 import com.example.quesansappbackend.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +14,15 @@ import java.util.Optional;
 public class UserService {
 
     UserRepository userRepository;
+    LikeRepository likeRepository;
+    CommentRepository commentRepository;
+    PostRepository postRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, LikeRepository likeRepository, CommentRepository commentRepository, PostRepository postRepository) {
         this.userRepository = userRepository;
+        this.likeRepository = likeRepository;
+        this.commentRepository = commentRepository;
+        this.postRepository = postRepository;
     }
 
     public List<User> getAllUsers() {
@@ -46,5 +55,14 @@ public class UserService {
 
     public User getOneUserByUserName(String userName) {
         return userRepository.findByUserName(userName);
+    }
+
+    public List<Object> getUserActivity(Long userId) {
+        List<Long> postIds = postRepository.findTopByUserId(userId);
+        if(postIds.isEmpty()) {
+            return null;
+        }
+        System.out.println(commentRepository.findUserCommentByPostId(postIds));
+        return null;
     }
 }

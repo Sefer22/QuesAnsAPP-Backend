@@ -39,7 +39,9 @@ public class SecurityConfig {
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(handler))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.GET,"/posts").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/posts").permitAll()
                         .requestMatchers(HttpMethod.GET,"/comments").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/comments").permitAll()
                         .requestMatchers("/auth/**").permitAll()
                         .anyRequest().authenticated()
                 )
