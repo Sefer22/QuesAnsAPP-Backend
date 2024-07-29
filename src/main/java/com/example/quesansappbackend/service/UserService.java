@@ -1,12 +1,16 @@
 package com.example.quesansappbackend.service;
 
+import com.example.quesansappbackend.entity.Comment;
+import com.example.quesansappbackend.entity.Like;
 import com.example.quesansappbackend.entity.User;
 import com.example.quesansappbackend.repository.CommentRepository;
 import com.example.quesansappbackend.repository.LikeRepository;
 import com.example.quesansappbackend.repository.PostRepository;
 import com.example.quesansappbackend.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,12 +61,16 @@ public class UserService {
         return userRepository.findByUserName(userName);
     }
 
+    @Transactional
     public List<Object> getUserActivity(Long userId) {
         List<Long> postIds = postRepository.findTopByUserId(userId);
         if(postIds.isEmpty()) {
             return null;
         }
-        System.out.println(commentRepository.findUserCommentByPostId(postIds));
-        return null;
+       List<Comment> comments = commentRepository.findUserCommentByPostId(postIds);
+       List<Like> likes =  likeRepository.findUserLikesByPostId(postIds);
+       List<Object> result = new ArrayList<>();
+       result.addAll(comments);
+       result.addAll(likes);
     }
 }

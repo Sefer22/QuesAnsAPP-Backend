@@ -15,6 +15,7 @@ public interface CommentRepository extends JpaRepository<Comment,Long> {
 
     List<Comment> findByPostId(Optional<Long> postId);
 
+
     @Query(value = "select * from comment where post_id in :postIds limit 5",
             nativeQuery = true)
     List<Comment> findUserCommentByPostId(@Param("postIds") List<Long> postIds);

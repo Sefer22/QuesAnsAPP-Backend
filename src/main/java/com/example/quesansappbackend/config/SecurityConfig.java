@@ -42,8 +42,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST,"/posts").permitAll()
                         .requestMatchers(HttpMethod.GET,"/comments").permitAll()
                         .requestMatchers(HttpMethod.POST,"/comments").permitAll()
-                        .requestMatchers("/auth/**").permitAll()
-                        .anyRequest().authenticated()
+                                .anyRequest().permitAll()
+//                        .requestMatchers("/auth/**").permitAll()
+//                        .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
