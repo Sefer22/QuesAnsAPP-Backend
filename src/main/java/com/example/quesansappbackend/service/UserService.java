@@ -72,5 +72,6 @@ public class UserService {
        List<Object> result = new ArrayList<>();
        result.addAll(comments);
        result.addAll(likes);
+       return result;
     }
 }
