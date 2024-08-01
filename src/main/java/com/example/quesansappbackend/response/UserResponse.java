@@ -9,5 +9,9 @@ public class UserResponse {
     int avatarId;
     String username;
 
-    public UserResponse (User entity)
+    public UserResponse (User entity) {
+        this.id = entity.getId();
+        this.avatarId=entity.getAvatar();
+        this.username=entity.getUserName();
+    }
 }

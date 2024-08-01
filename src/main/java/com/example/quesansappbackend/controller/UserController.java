@@ -36,7 +36,7 @@ public class UserController {
     @GetMapping("/{userId}")
     public UserResponse getOneUser(@PathVariable Long userId) {
         //custom exception
-        return userService.getOneUserById(userId);
+        return new UserResponse(userService.getOneUserById(userId));
     }
     @PutMapping("/{userId}")
     public User updateOneUser(@PathVariable Long userId,@RequestBody User newUser) {
