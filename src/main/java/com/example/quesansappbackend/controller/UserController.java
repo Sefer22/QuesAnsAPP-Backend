@@ -2,6 +2,7 @@ package com.example.quesansappbackend.controller;
 
 import com.example.quesansappbackend.entity.User;
 import com.example.quesansappbackend.repository.UserRepository;
+import com.example.quesansappbackend.response.UserResponse;
 import com.example.quesansappbackend.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -33,7 +34,7 @@ public class UserController {
         return userService.saveOneUser(newUser);
     }
     @GetMapping("/{userId}")
-    public User getOneUser(@PathVariable Long userId) {
+    public UserResponse getOneUser(@PathVariable Long userId) {
         //custom exception
         return userService.getOneUserById(userId);
     }
