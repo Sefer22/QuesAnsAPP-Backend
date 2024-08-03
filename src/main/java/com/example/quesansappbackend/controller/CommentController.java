@@ -3,6 +3,7 @@ package com.example.quesansappbackend.controller;
 import com.example.quesansappbackend.entity.Comment;
 import com.example.quesansappbackend.request.CommentCreateRequest;
 import com.example.quesansappbackend.request.CommentUpdateRequest;
+import com.example.quesansappbackend.response.CommentResponse;
 import com.example.quesansappbackend.service.CommentService;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,7 @@ public class CommentController {
     }
 
     @GetMapping
-    public List<Comment> getAllComments(@RequestParam Optional<Long> userId,@RequestParam Optional<Long> postId) {
+    public List<CommentResponse> getAllComments(@RequestParam Optional<Long> userId, @RequestParam Optional<Long> postId) {
         return commentService.getAllCommentsWithParam(userId,postId);
     }
     @GetMapping("/{commentId}")

@@ -6,12 +6,14 @@ import com.example.quesansappbackend.entity.User;
 import com.example.quesansappbackend.repository.CommentRepository;
 import com.example.quesansappbackend.request.CommentCreateRequest;
 import com.example.quesansappbackend.request.CommentUpdateRequest;
+import com.example.quesansappbackend.response.CommentResponse;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CommentService {
@@ -27,15 +29,17 @@ public class CommentService {
     }
 
     @Transactional
-    public List<Comment> getAllCommentsWithParam(Optional<Long> userId, Optional<Long> postId) {
+    public List<CommentResponse> getAllCommentsWithParam(Optional<Long> userId, Optional<Long> postId) {
+        List<Comment> comments;
         if(userId.isPresent() && postId.isPresent()) {
-            return commentRepository.findByUserIdAndPostId(userId,postId);
+            comments = commentRepository.findByUserIdAndPostId(userId,postId);
         } else if (userId.isPresent()) {
-            return commentRepository.findByUserId(Optional.of(userId.get()));
+            comments = commentRepository.findByUserId(Optional.of(userId.get()));
         } else if (postId.isPresent()) {
-            return commentRepository.findByPostId(Optional.of(postId.get()));
-        }else  return commentRepository.findAll();
+            comments = commentRepository.findByPostId(Optional.of(postId.get()));
+        }else  comments = commentRepository.findAll();
 
+        return comments.stream().map(comment ->new CommentResponse(comment)).collect(Collectors.toList());
     }
 
     public Comment getOneCommentById(Long commentId) {
