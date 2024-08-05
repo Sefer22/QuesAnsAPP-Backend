@@ -80,10 +80,14 @@ public class AuthController {
 
     @PostMapping("/refresh")
     public ResponseEntity<AuthResponse> refresh(@RequestBody RefreshRequest refreshRequest) {
+        AuthResponse response = new AuthResponse();
         RefreshToken token = refreshTokenService.getByUser(refreshRequest.getUserId());
         if(token.getToken().equals(refreshRequest.getRefreshToken()) &&
-                refreshTokenService.isRefreshExpired(token)){
+                !refreshTokenService.isRefreshExpired(token)){
 
+        }else {
+            response.setMessage("refresh token is not valid");
+            return new ResponseEntity<>(response,HttpStatus.UNAUTHORIZED);
         }
     }
 }
