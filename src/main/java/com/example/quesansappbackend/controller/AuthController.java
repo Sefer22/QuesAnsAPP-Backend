@@ -1,6 +1,8 @@
 package com.example.quesansappbackend.controller;
 
+import com.example.quesansappbackend.entity.RefreshToken;
 import com.example.quesansappbackend.entity.User;
+import com.example.quesansappbackend.request.RefreshRequest;
 import com.example.quesansappbackend.request.UserRequest;
 import com.example.quesansappbackend.response.AuthResponse;
 import com.example.quesansappbackend.security.JwtTokenProvider;
@@ -74,5 +76,14 @@ public class AuthController {
         authResponse.setRefreshToken(refreshTokenService.createRefreshToken(user));
         authResponse.setUserId(user.getId());
         return new ResponseEntity<>(authResponse,HttpStatus.CREATED);
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<AuthResponse> refresh(@RequestBody RefreshRequest refreshRequest) {
+        RefreshToken token = refreshTokenService.getByUser(refreshRequest.getUserId());
+        if(token.getToken().equals(refreshRequest.getRefreshToken()) &&
+                refreshTokenService.isRefreshExpired(token)){
+
+        }
     }
 }

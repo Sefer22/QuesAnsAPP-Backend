@@ -39,4 +39,8 @@ public class RefreshTokenService {
 
         return token.getExpiryDate().before(new Date());
     }
+
+    public RefreshToken getByUser(Long userId) {
+        return refreshTokenRepository.findByUser(userId);
+    }
 }
