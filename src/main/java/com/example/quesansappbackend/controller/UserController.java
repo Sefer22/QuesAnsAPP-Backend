@@ -1,12 +1,15 @@
 package com.example.quesansappbackend.controller;
 
 import com.example.quesansappbackend.entity.User;
+import com.example.quesansappbackend.exceptions.UserNotFoundException;
 import com.example.quesansappbackend.repository.UserRepository;
 import com.example.quesansappbackend.response.UserResponse;
 import com.example.quesansappbackend.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,8 +38,11 @@ public class UserController {
     }
     @GetMapping("/{userId}")
     public UserResponse getOneUser(@PathVariable Long userId) {
-        //custom exception
-        return new UserResponse(userService.getOneUserById(userId));
+        User user = (userService.getOneUserById(userId));
+        if(user==null) {
+            throw new UserNotFoundException("User not found");
+        }
+        return new UserResponse(user);
     }
     @PutMapping("/{userId}")
     public User updateOneUser(@PathVariable Long userId,@RequestBody User newUser) {
@@ -51,6 +57,12 @@ public class UserController {
     public List<Object> getUserActivvity(@PathVariable Long userId) {
 
         return userService.getUserActivity(userId);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    private void handleUserNotFound() {
+
     }
 
 
