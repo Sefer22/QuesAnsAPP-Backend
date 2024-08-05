@@ -4,6 +4,7 @@ import com.example.quesansappbackend.entity.User;
 import com.example.quesansappbackend.request.UserRequest;
 import com.example.quesansappbackend.response.AuthResponse;
 import com.example.quesansappbackend.security.JwtTokenProvider;
+import com.example.quesansappbackend.service.RefreshTokenService;
 import com.example.quesansappbackend.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,8 @@ public class AuthController {
 
     private PasswordEncoder passwordEncoder;
 
+    private RefreshTokenService refreshTokenService;
+
     public AuthController(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserService userService, PasswordEncoder passwordEncoder) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
@@ -44,7 +47,7 @@ public class AuthController {
         User user = userService.getOneUserByUserName(loginRequest.getUserName());
         AuthResponse authResponse = new AuthResponse();
         authResponse.setAccessToken("Bearer "+jwtToken);
-        authResponse.setRefreshToken();
+        authResponse.setRefreshToken(refreshTokenService.createRefreshToken(user));
         authResponse.setUserId(user.getId());
         return authResponse;
     }
