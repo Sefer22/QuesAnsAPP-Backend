@@ -33,11 +33,12 @@ public class AuthController {
 
     private RefreshTokenService refreshTokenService;
 
-    public AuthController(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserService userService, PasswordEncoder passwordEncoder) {
+    public AuthController(AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider, UserService userService, PasswordEncoder passwordEncoder, RefreshTokenService refreshTokenService) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
+        this.refreshTokenService = refreshTokenService;
     }
 
     @PostMapping("/login")
@@ -53,6 +54,8 @@ public class AuthController {
         authResponse.setUserId(user.getId());
         return authResponse;
     }
+
+    //"Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyMiIsImlhdCI6MTcyMjg2MjM2MywiZXhwIjoxNzIyODYyMzY2fQ.GmcJbrgc2eu19TIwJGjvDXmyULQGLBdXUEU8uNNuREo"
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@RequestBody UserRequest registerRequest) {
