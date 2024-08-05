@@ -61,4 +61,14 @@ public class JwtTokenProvider {
         Date expiration = (Date) Jwts.parser().setSigningKey(secretKey).build().parseSignedClaims(token).getPayload().getExpiration();
         return expiration.before(new Date());
     }
+
+    public String generateJwtTokenByUserId(Long userId) {
+        Date expireDate = new Date(new Date().getTime() + EXPIRES_IN);
+        return Jwts.builder()
+                .setSubject(Long.toString(userId))
+                .setIssuedAt(new Date())
+                .setExpiration(expireDate)
+                .signWith(secretKey, SignatureAlgorithm.HS512)
+                .compact();
+    }
 }
