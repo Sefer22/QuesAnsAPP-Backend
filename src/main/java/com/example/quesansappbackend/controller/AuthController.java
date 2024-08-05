@@ -85,6 +85,12 @@ public class AuthController {
         if(token.getToken().equals(refreshRequest.getRefreshToken()) &&
                 !refreshTokenService.isRefreshExpired(token)){
 
+            User user = token.getUser();
+            String jwtToken = jwtTokenProvider.generateJwtTokenByUserId(user.getId());
+            response.setMessage("token successfully refreshed");
+            response.setAccessToken("Bearer "+jwtToken);
+            response.setUserId(user.getId());
+            return new ResponseEntity<>(response,HttpStatus.OK);
         }else {
             response.setMessage("refresh token is not valid");
             return new ResponseEntity<>(response,HttpStatus.UNAUTHORIZED);
